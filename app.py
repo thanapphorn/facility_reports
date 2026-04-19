@@ -31,7 +31,7 @@ def get_gspread_client():
     creds = Credentials.from_service_account_info(
         st.secrets["gcp_service_account"], scopes=SCOPES
     )
-    return gspread.authorize(creds)
+    return gspread.Client(auth=creds)
 
 def get_sheet():
     return get_gspread_client().open(st.secrets["sheet"]["name"]).sheet1
