@@ -93,6 +93,12 @@ st.markdown("""
 *, *::before, *::after { box-sizing: border-box; }
 html, body, [class*="css"] { font-family: 'Source Sans 3', 'Sarabun', sans-serif !important; }
 
+h1, h2, h3 {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif !important;
+}
+
 #MainMenu, footer, header { visibility: hidden; }
 section[data-testid="stSidebar"] { display: none !important; }
 .block-container { padding: 0 !important; max-width: 100% !important; }
@@ -324,8 +330,8 @@ hr { border-color: var(--border) !important; margin:1.5rem 0 !important; }
 # ── Page Header ──────────────────────────────────────────────
 st.markdown("""
 <div style="padding: 2rem 2rem 0 2rem;">
-  <h1 style="font-size:2rem;font-weight:800;color:#1a1a2e;margin:0;letter-spacing:-0.02em;">ระบบแจ้งปัญหาภายในอาคาร</h1>
-  <p style="color:#6b7280;font-size:0.95rem;margin:4px 0 0 0;">Facility Issue Reporting System</p>
+  <h1 style="font-size:2rem;font-weight:800;color:#1a1a2e;margin:0;letter-spacing:-0.01em;word-break:keep-all;overflow-wrap:normal;font-family:'Sarabun','Noto Sans Thai',sans-serif;">ระบบแจ้งปัญหาภายในอาคาร</h1>
+  <p style="color:#6b7280;font-size:0.95rem;margin:6px 0 0 0;font-family:'Source Sans 3','Sarabun',sans-serif;">Facility Issue Reporting System</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -460,7 +466,7 @@ with t1:
                     <div class="sub2">คลิกเพื่อคัดลอก</div>
                   </div>
                 </div>
-                """, height=85)
+                """, height=110)
 
 # ═══════════════════════════════════════════════════════════
 # TAB 2 — ติดตามสถานะ
