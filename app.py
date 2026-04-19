@@ -150,7 +150,7 @@ def status_badge(status):
 # Menu
 # =============================================================
 st.title("🏢 ระบบแจ้งปัญหาภายในอาคาร")
-menu = st.radio("", ["📢 แจ้งปัญหา","🔎 ติดตามสถานะ","🔐 Admin"], horizontal=True)
+menu = st.radio("เมนู", ["📢 แจ้งปัญหา","🔎 ติดตามสถานะ","🔐 Admin"], horizontal=True, label_visibility="collapsed")
 
 # =============================================================
 # PAGE 1 : REPORT
