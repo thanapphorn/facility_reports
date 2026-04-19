@@ -70,7 +70,7 @@ def delete_report(report_id: str):
 def upload_to_drive(image_bytes: bytes, filename: str) -> str:
     drive = get_drive_service()
     file  = drive.files().create(
-        body={"name": filename},
+        body={"name": filename, "parents": ["12qTglBL_A_-lreMXGJyhRCdC-ICRgz4H"]},
         media_body=MediaIoBaseUpload(io.BytesIO(image_bytes), mimetype="image/jpeg"),
         fields="id"
     ).execute()
