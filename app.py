@@ -7,16 +7,22 @@ import io
 
 import gspread
 from google.oauth2.service_account import Credentials
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaIoBaseUpload
+import cloudinary
+import cloudinary.uploader
 
 # =============================================================
 # Google Sheets & Drive Setup
 # =============================================================
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive",
 ]
+
+cloudinary.config(
+    cloud_name = "dmtcuvfxu",
+    api_key    = "166733879592223",
+    api_secret = "1YKnxcY8QxgXOR0OvJ_hKCZhtBo",
+    secure     = True
+)
 COLS = ["ID","Name","Phone","Category","Location",
         "Detail","Status","Date","Time","Month","ImageUrl","ImageName"]
 
@@ -26,13 +32,6 @@ def get_gspread_client():
         st.secrets["gcp_service_account"], scopes=SCOPES
     )
     return gspread.authorize(creds)
-
-@st.cache_resource
-def get_drive_service():
-    creds = Credentials.from_service_account_info(
-        st.secrets["gcp_service_account"], scopes=SCOPES
-    )
-    return build("drive", "v3", credentials=creds)
 
 def get_sheet():
     return get_gspread_client().open(st.secrets["sheet"]["name"]).sheet1
@@ -67,19 +66,13 @@ def delete_report(report_id: str):
             sheet.delete_rows(i + 2)
             return
 
-def upload_to_drive(image_bytes: bytes, filename: str) -> str:
-    drive = get_drive_service()
-    file  = drive.files().create(
-        body={"name": filename, "parents": ["12qTglBL_A_-lreMXGJyhRCdC-ICRgz4H"]},
-        media_body=MediaIoBaseUpload(io.BytesIO(image_bytes), mimetype="image/jpeg"),
-        fields="id"
-    ).execute()
-    file_id = file["id"]
-    drive.permissions().create(
-        fileId=file_id,
-        body={"type": "anyone", "role": "reader"}
-    ).execute()
-    return f"https://drive.google.com/uc?id={file_id}"
+def upload_image(image_bytes: bytes, filename: str) -> str:
+    result = cloudinary.uploader.upload(
+        image_bytes,
+        public_id=filename,
+        folder="facility_reports"
+    )
+    return result["secure_url"]
 
 # =============================================================
 # App Config
@@ -191,7 +184,7 @@ if menu == "📢 แจ้งปัญหา":
             image_name = ""
             if image is not None:
                 with st.spinner("กำลังอัปโหลดรูปภาพ..."):
-                    image_url  = upload_to_drive(image.read(), image.name)
+                    image_url  = upload_image(image.read(), image.name)
                     image_name = image.name
 
             report = {
