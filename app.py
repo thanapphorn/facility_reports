@@ -177,12 +177,6 @@ div[data-testid="stFileUploader"] > div:hover {
   border-color: #1a56db !important;
   background: #f0f4ff !important;
 }
-div[data-testid="stFileUploader"] button {
-  display: none !important;
-}
-div[data-testid="stFileUploaderDropzoneInstructions"] {
-  padding: 20px 0 !important;
-}
 
 /* ── Track search: align input + button ── */
 div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
@@ -318,6 +312,11 @@ div[data-testid="stButton"] button[kind="secondary"]:hover {
 
 div[data-testid="stAlert"] { border-radius:8px !important; }
 hr { border-color:#e8eaed !important; margin:24px 0 !important; }
+
+/* ── Bottom padding so page is scrollable past last element ── */
+.stTabs [data-baseweb="tab-panel"] > div > div:last-child {
+  padding-bottom: 80px !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
