@@ -15,6 +15,7 @@ import cloudinary.uploader
 # =============================================================
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive",
 ]
 
 cloudinary.config(
@@ -128,6 +129,7 @@ if "confirm_delete_id" not in st.session_state:
     st.session_state.confirm_delete_id = None
 
 def reload_reports():
+    get_gspread_client.clear()
     st.session_state.reports = load_reports()
 
 # -----------------------
